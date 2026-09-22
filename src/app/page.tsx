@@ -5,12 +5,13 @@ import UniverseScene from "@/components/3d/UniverseScene";
 import IntroScreen from "@/components/3d/IntroScreen";
 import OrbitalNavigation from "@/components/navigation/OrbitalNavigation";
 
-// নতুন তৈরি করা মডালগুলো ইমপোর্ট করুন:
+// মডাল কম্পোনেন্ট
 import AboutModal from "@/components/modals/AboutModal";
 import SkillsModal from "@/components/modals/SkillsModal";
 import ExperienceModal from "@/components/modals/ExperienceModal";
 import ProjectsModal from "@/components/modals/ProjectsModal";
 import ContactModal from "@/components/modals/ContactModal";
+import ExecutiveCVModal from "@/components/cv/ExecutiveCVModal";
 
 type UniverseMode = "globe" | "planets";
 type PlanetId = "about" | "skills" | "experience" | "projects" | "contact";
@@ -19,6 +20,7 @@ export default function Home() {
   const [entered, setEntered] = useState(false);
   const [universeMode, setUniverseMode] = useState<UniverseMode>("globe");
   const [activePlanet, setActivePlanet] = useState<PlanetId | null>(null);
+  const [showExecutiveCV, setShowExecutiveCV] = useState(false);
 
   const handleEnter = () => {
     setEntered(true);
@@ -75,7 +77,7 @@ export default function Home() {
           <UniverseScene />
         </div>
 
-        {/* TOP BRAND */}
+        {/* TOP BRAND (LEFT) */}
         <div className="pointer-events-none absolute left-[3%] top-[4%] z-30">
           <div className="text-[18px] font-semibold tracking-tight text-white">
             Rokon<span className="text-blue-400">.</span>
@@ -83,6 +85,20 @@ export default function Home() {
           <div className="mt-1 text-[7px] uppercase tracking-[0.45em] text-white/35">
             Digital Portfolio
           </div>
+        </div>
+
+        {/* TOP RIGHT: EXECUTIVE CV BUTTON */}
+        <div className="absolute right-[3%] top-[4%] z-40">
+          <button
+            type="button"
+            onClick={() => setShowExecutiveCV(true)}
+            className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 backdrop-blur-md transition-all duration-300 hover:border-emerald-400 hover:bg-emerald-500/10 hover:shadow-[0_0_20px_rgba(52,211,153,0.3)] hover:scale-105 cursor-pointer"
+          >
+            <span className="text-xs">📄</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-white/80 hover:text-white">
+              Executive CV
+            </span>
+          </button>
         </div>
 
         {/* ORBITAL NAVIGATION */}
@@ -149,13 +165,13 @@ export default function Home() {
               <button
                 type="button"
                 onClick={handleCloseModal}
-                className="group flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/60 backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:text-white"
+                className="group flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/60 backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:text-white cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            {/* কম্পোনেন্ট অনুযায়ী ডায়নামিক রেন্ডার (Clean Architecture) */}
+            {/* কম্পোনেন্ট অনুযায়ী ডায়নামিক রেন্ডার */}
             {activePlanet === "about" && <AboutModal />}
             {activePlanet === "skills" && <SkillsModal />}
             {activePlanet === "experience" && <ExperienceModal />}
@@ -170,13 +186,18 @@ export default function Home() {
               <button
                 type="button"
                 onClick={handleCloseModal}
-                className="rounded-full border border-white/10 px-6 py-2 text-[9px] font-mono uppercase tracking-[0.25em] text-white/50 transition-all hover:border-white/30 hover:text-white"
+                className="rounded-full border border-white/10 px-6 py-2 text-[9px] font-mono uppercase tracking-[0.25em] text-white/50 transition-all hover:border-white/30 hover:text-white cursor-pointer"
               >
                 ← Return to Planet Universe
               </button>
             </div>
           </div>
         </div>
+      )}
+
+      {/* ================= EXECUTIVE CV MODAL ================= */}
+      {showExecutiveCV && (
+        <ExecutiveCVModal onClose={() => setShowExecutiveCV(false)} />
       )}
     </main>
   );
