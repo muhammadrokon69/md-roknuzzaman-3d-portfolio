@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 interface ExecutiveCVModalProps {
   onClose: () => void;
 }
@@ -11,12 +13,12 @@ export default function ExecutiveCVModal({ onClose }: ExecutiveCVModalProps) {
 
   return (
     <div className="fixed inset-0 z-[200000] overflow-y-auto bg-slate-900/90 backdrop-blur-xl p-3 sm:p-6 md:p-10 animate-fadeIn">
-      {/* অ্যাকশন কন্ট্রোল বার (প্রিন্ট পেজে হাইড থাকবে) */}
+      {/* অ্যাকশন কন্ট্রোল বার (প্রিন্ট করার সময় হাইড থাকবে) */}
       <div className="mx-auto max-w-4xl flex items-center justify-between gap-4 mb-6 print:hidden">
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs font-mono uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:scale-105"
+          className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-xs font-mono uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:scale-105 cursor-pointer"
         >
           <span>← Return to 3D Universe</span>
         </button>
@@ -28,7 +30,7 @@ export default function ExecutiveCVModal({ onClose }: ExecutiveCVModalProps) {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-5 py-2 text-xs font-mono uppercase tracking-wider text-black font-semibold shadow-lg transition-all hover:bg-emerald-400 hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-5 py-2 text-xs font-mono uppercase tracking-wider text-black font-semibold shadow-lg transition-all hover:bg-emerald-400 hover:scale-105 cursor-pointer"
           >
             <span>🖨️ Print / Save PDF</span>
           </button>
@@ -36,23 +38,38 @@ export default function ExecutiveCVModal({ onClose }: ExecutiveCVModalProps) {
       </div>
 
       {/* মূল লাইট-থিম ডকুমেন্ট পেপার (A4 স্টাইল) */}
-      <div className="mx-auto max-w-4xl rounded-2xl bg-white text-slate-900 shadow-2xl p-6 sm:p-12 print:shadow-none print:p-0 print:m-0 print:max-w-none">
+      <div className="mx-auto max-w-4xl rounded-2xl bg-white text-slate-900 shadow-2xl p-6 sm:p-12 print:shadow-none print:p-0 print:m-0 print:max-w-none print:rounded-none">
         
-        {/* ডক হেডার */}
-        <div className="border-b border-slate-200 pb-6 flex flex-wrap items-start justify-between gap-6">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
-              MD. Roknuzzaman
-            </h1>
-            <p className="mt-1 text-sm sm:text-base font-medium text-sky-700">
-              AI, Web, App & Automation Specialist
-            </p>
-            <p className="mt-2 text-xs text-slate-550 max-w-lg leading-relaxed">
-              Designing and building practical digital solutions across full-stack web applications, autonomous LLM workflows, and enterprise business automation.
-            </p>
+        {/* ডক হেডার: ছবি + নাম ও পরিচিতি + কন্ট্যাক্ট মেটা */}
+        <div className="border-b border-slate-200 pb-6 flex flex-col sm:flex-row items-center sm:items-start justify-between gap-6">
+          
+          {/* প্রোফাইল ছবি ও আইডেন্টিটি */}
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+            <div className="relative h-28 w-28 sm:h-32 sm:w-32 shrink-0 overflow-hidden rounded-xl border-2 border-slate-200 shadow-md print:border-slate-300">
+              <Image
+                src="/Rokon.webp"
+                alt="MD. Roknuzzaman"
+                fill
+                priority
+                className="object-cover object-top"
+              />
+            </div>
+
+            <div>
+              <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-slate-900">
+                MD. Roknuzzaman
+              </h1>
+              <p className="mt-1 text-sm sm:text-base font-semibold text-sky-700">
+                AI, Web, App & Automation Specialist
+              </p>
+              <p className="mt-2 text-xs text-slate-600 max-w-md leading-relaxed">
+                Designing and building practical digital solutions across full-stack web applications, autonomous LLM workflows, and enterprise business automation.
+              </p>
+            </div>
           </div>
 
-          <div className="text-xs font-mono text-slate-600 space-y-1.5 text-right sm:text-right">
+          {/* কন্ট্যাক্ট ডিরেক্টরি */}
+          <div className="text-xs font-mono text-slate-600 space-y-1.5 text-center sm:text-right shrink-0 border-t sm:border-t-0 border-slate-100 pt-3 sm:pt-0 w-full sm:w-auto">
             <div>📍 Gazipur, Bangladesh</div>
             <div>✉️ rokon@arefintech.com</div>
             <div>📞 +880 1401-269616</div>
@@ -162,7 +179,7 @@ export default function ExecutiveCVModal({ onClose }: ExecutiveCVModalProps) {
           </div>
         </div>
 
-        {/* সেকশন ৪: EDUCATION & MENTORSHIP */}
+        {/* সেকশন ৪: EDUCATION & PHILOSOPHY */}
         <div className="mt-6">
           <h2 className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold mb-2">
             Educational Background & Philosophy
